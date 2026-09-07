@@ -269,7 +269,7 @@ export default function RobotViewport({
 }: ViewportProps) {
   const reach = config.L2 + config.L3;
   return (
-    <Canvas shadows camera={{ position: [4.5, 3.6, 4.8], fov: 50 }} dpr={[1, 2]}>
+    <Canvas shadows camera={{ position: [6.5, 5, 7], fov: 45 }} dpr={[1, 2]}>
       <color attach="background" args={["#080c14"]} />
       <fog attach="fog" args={["#080c14", 14, 30]} />
       <ambientLight intensity={0.45} />
