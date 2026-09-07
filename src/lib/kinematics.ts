@@ -65,8 +65,8 @@ export function multiply(A: Mat4, B: Mat4): Mat4 {
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
       let s = 0;
-      for (let k = 0; k < 4; k++) s += A[i][k] * B[k][j];
-      C[i][j] = s;
+      for (let k = 0; k < 4; k++) s += A[i]![k]! * B[k]![j]!;
+      C[i]![j] = s;
     }
   }
   return C;
@@ -107,16 +107,16 @@ export function forwardKinematics(anglesDeg: number[], cfg: RobotConfig = DEFAUL
   const joints: Vec3[] = [{ x: 0, y: 0, z: 0 }];
   rows.forEach((row, i) => {
     T = multiply(T, dhMatrix(row, (anglesDeg[i] ?? 0) * DEG));
-    joints.push({ x: T[0][3], y: T[1][3], z: T[2][3] });
+    joints.push({ x: T[0]![3]!, y: T[1]![3]!, z: T[2]![3]! });
   });
-  return { joints, endEffector: joints[joints.length - 1], transform: T };
+  return { joints, endEffector: joints[joints.length - 1]!, transform: T };
 }
 
 export interface IKResult {
   angles: number[]; // degrees
   reachable: boolean;
   withinLimits: boolean;
-  reason?: string;
+  reason?: string | undefined;
   achieved: Vec3;
   error: number;
 }
@@ -153,7 +153,7 @@ export function inverseKinematics(
   const error = distance(fk.endEffector, target);
 
   const withinLimits = angles.every(
-    (a, i) => a >= cfg.limits[i].min - 1e-6 && a <= cfg.limits[i].max + 1e-6,
+    (a, i) => a >= cfg.limits[i]!.min - 1e-6 && a <= cfg.limits[i]!.max + 1e-6,
   );
   if (reachable && !withinLimits) reason = "Solution violates joint limits";
 
