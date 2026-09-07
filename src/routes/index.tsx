@@ -47,7 +47,10 @@ function Dashboard() {
   const [target, setTarget] = useState<Vec3>({ x: 1.6, y: 0.9, z: 1.8 });
   const [showTrajectory, setShowTrajectory] = useState(true);
   const [trajectory, setTrajectory] = useState<Vec3[]>([]);
-  const [ikInfo, setIkInfo] = useState<{ reachable: boolean; reason?: string } | null>(null);
+  const [ikInfo, setIkInfo] = useState<{
+    reachable: boolean;
+    reason?: string | undefined;
+  } | null>(null);
   const lastPoint = useRef<Vec3 | null>(null);
 
   const fk = useMemo(() => forwardKinematics(angles, CFG), [angles]);
